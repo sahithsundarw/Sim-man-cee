@@ -26,4 +26,13 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  {
+    // Generated shadcn/registry components — exempt from app-level component rules
+    files: ['src/components/ui/**/*.{js,jsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+      'react-hooks/purity': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+    },
+  },
 ])
