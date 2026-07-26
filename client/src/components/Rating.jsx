@@ -14,7 +14,7 @@ export default function Rating({ value, showValue = true, className }) {
             className={cn(
               "h-3.5 w-3.5",
               star <= Math.round(value)
-                ? "fill-amber-400 text-amber-400"
+                ? "fill-gold text-ink"
                 : "text-muted-foreground/40"
             )}
           />

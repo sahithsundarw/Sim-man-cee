@@ -22,7 +22,7 @@ export default function TrendChart() {
         <CardTitle className="text-base">Performance Trend</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-64 w-full">
+        <ChartContainer config={chartConfig} className="h-64 w-full font-mono">
           <LineChart data={MOCK_WEEKLY_TREND} margin={{ left: -20, right: 8 }}>
             <CartesianGrid vertical={false} strokeOpacity={0.15} />
             <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />

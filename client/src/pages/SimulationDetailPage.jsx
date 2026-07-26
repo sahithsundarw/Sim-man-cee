@@ -23,14 +23,14 @@ import { cn } from "@/lib/utils"
 function QuickStat({ icon, label, children }) {
   const Icon = icon
   return (
-    <Card>
+    <Card className="shadow-punch-sm">
       <CardContent className="flex items-center gap-3 p-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border-2 border-ink bg-secondary text-ink">
           <Icon className="h-5 w-5" aria-hidden="true" />
         </div>
         <div>
           <p className="text-xs text-muted-foreground">{label}</p>
-          <div className="text-sm font-semibold">{children}</div>
+          <div className="font-mono text-sm font-semibold tabular-nums">{children}</div>
         </div>
       </CardContent>
     </Card>
@@ -39,7 +39,7 @@ function QuickStat({ icon, label, children }) {
 
 function ComingSoon({ label }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border py-16 text-center">
+    <div className="flex flex-col items-center gap-3 rounded-md border-2 border-dashed border-ink/40 py-16 text-center">
       <Hourglass className="h-8 w-8 text-muted-foreground/50" aria-hidden="true" />
       <p className="font-medium">{label} coming soon</p>
       <p className="max-w-sm text-sm text-muted-foreground">
@@ -57,7 +57,7 @@ export default function SimulationDetailPage() {
   if (!simulation) {
     return (
       <div className="py-20 text-center">
-        <h1 className="text-3xl font-bold">Simulation not found</h1>
+        <h1 className="font-display text-3xl uppercase">Simulation not found</h1>
         <p className="mt-2 text-muted-foreground">
           No simulation exists at this address.
         </p>
@@ -84,8 +84,8 @@ export default function SimulationDetailPage() {
       </Link>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <h1 className="text-3xl font-bold tracking-tight">{simulation.title}</h1>
-        <Badge className={cn("rounded-full border-0 px-2.5", category?.chip)}>
+        <h1 className="font-display text-3xl uppercase tracking-tight">{simulation.title}</h1>
+        <Badge className={cn("border-ink px-2.5", category?.chip)}>
           {simulation.category}
         </Badge>
       </div>
@@ -109,7 +109,7 @@ export default function SimulationDetailPage() {
       </div>
 
       <div className="mt-4 flex flex-wrap gap-3">
-        <Button size="lg">
+        <Button variant="token" size="lg">
           <Play />
           Play Simulation
         </Button>
@@ -143,7 +143,7 @@ export default function SimulationDetailPage() {
                   {simulation.mechanics.map((mechanic) => (
                     <li key={mechanic} className="flex items-center gap-2.5 text-sm">
                       <CheckCircle2
-                        className="h-4 w-4 shrink-0 text-primary"
+                        className="h-4 w-4 shrink-0 text-ink"
                         aria-hidden="true"
                       />
                       {mechanic}
@@ -153,7 +153,7 @@ export default function SimulationDetailPage() {
               </div>
             </div>
 
-            <div className="aspect-video w-full overflow-hidden rounded-xl border border-border">
+            <div className="aspect-video w-full overflow-hidden rounded-md border-2 border-ink shadow-punch">
               <SimIcon slug={simulation.slug} label={`${simulation.title} banner`} />
             </div>
           </div>
@@ -164,8 +164,8 @@ export default function SimulationDetailPage() {
               {simulation.learnTags.map((tag) => (
                 <Badge
                   key={tag}
-                  variant="secondary"
-                  className="rounded-full px-3 py-1"
+                  variant="outline"
+                  className="border-2 px-3 py-1"
                 >
                   {tag}
                 </Badge>

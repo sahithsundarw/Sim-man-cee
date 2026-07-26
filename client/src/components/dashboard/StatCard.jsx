@@ -9,12 +9,12 @@ export default function StatCard({ icon: Icon, label, value, delta, up }) {
       <CardContent className="flex items-start justify-between p-5">
         <div>
           <p className="text-sm text-muted-foreground">{label}</p>
-          <p className="mt-1 text-2xl font-bold tabular-nums">{value}</p>
+          <p className="mt-1 font-mono text-2xl font-semibold tabular-nums">{value}</p>
           {delta && (
             <p
               className={cn(
-                "mt-1 inline-flex items-center gap-0.5 text-xs font-medium",
-                up ? "text-emerald-400" : "text-red-400"
+                "mt-1 inline-flex items-center gap-0.5 font-mono text-xs font-medium",
+                up ? "text-[#1f7a2e]" : "text-destructive"
               )}
             >
               {up ? (
@@ -27,7 +27,7 @@ export default function StatCard({ icon: Icon, label, value, delta, up }) {
           )}
         </div>
         {Icon && (
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-ink bg-secondary text-ink">
             <Icon className="h-5 w-5" aria-hidden="true" />
           </div>
         )}

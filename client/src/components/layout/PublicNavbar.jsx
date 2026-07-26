@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button"
 function ComingSoonLink({ label }) {
   return (
     <span
-      className="hidden items-center gap-1.5 text-sm text-muted-foreground/60 cursor-default select-none md:inline-flex"
+      className="hidden items-center gap-1.5 text-sm font-medium text-foreground/80 cursor-default select-none md:inline-flex"
       title="Coming soon"
     >
       {label}
-      <span className="rounded-full bg-secondary px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+      <span className="rounded-sm bg-gold/40 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink">
         soon
       </span>
     </span>
@@ -17,7 +17,7 @@ function ComingSoonLink({ label }) {
 
 export default function PublicNavbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b-2 border-ink bg-background">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2.5">
           <img
@@ -25,7 +25,7 @@ export default function PublicNavbar() {
             alt="SimManCee logo"
             className="h-9 w-9 rounded-md object-contain"
           />
-          <span className="text-lg font-bold tracking-tight text-gradient-accent">
+          <span className="font-display text-lg tracking-tight text-ink">
             SimManCee
           </span>
         </Link>
@@ -47,10 +47,24 @@ export default function PublicNavbar() {
           <ComingSoonLink label="Resources" />
 
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm">
+            <Button
+              variant="ghost"
+              size="sm"
+              disabled
+              title="Accounts coming soon"
+              className="disabled:opacity-100 text-ink"
+            >
               Log in
             </Button>
-            <Button size="sm">Sign up</Button>
+            <Button
+              variant="token"
+              size="sm"
+              disabled
+              title="Accounts coming soon"
+              className="disabled:opacity-100"
+            >
+              Sign up
+            </Button>
           </div>
         </div>
       </nav>

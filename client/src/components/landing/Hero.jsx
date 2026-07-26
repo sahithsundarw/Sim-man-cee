@@ -1,53 +1,91 @@
 import { Link } from "react-router-dom"
 import { Gamepad2, Play, ThumbsUp, Users } from "lucide-react"
+import { motion as Motion, useReducedMotion } from "motion/react"
 
 import { Button } from "@/components/ui/button"
 import { NumberTicker } from "@/components/ui/number-ticker"
-import { Spotlight } from "@/components/ui/spotlight"
 import { LANDING_STATS } from "@/data/landingStats"
+import BoardPath from "./BoardPath"
+import FloatingTokens from "./FloatingTokens"
 import HeroGraphic from "./HeroGraphic"
 
 const STAT_ICONS = { Gamepad2, Users, ThumbsUp }
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion()
+
+  const enter = (delay) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 16 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1], delay },
+        }
+
   return (
     <section className="relative overflow-hidden">
-      <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="#8b5cf6" />
-
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-2">
+      <BoardPath />
+      <FloatingTokens />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 sm:px-6 md:py-24 lg:grid-cols-2">
         <div>
-          <h1 className="text-5xl font-extrabold leading-[1.08] tracking-tight sm:text-[3.5rem]">
-            <span className="block text-foreground">Business</span>
-            <span className="block text-gradient-purple">Simulations.</span>
-            <span className="block text-gradient-orange">Real Decisions.</span>
-          </h1>
+          <Motion.h1
+            {...enter(0)}
+            className="font-display text-4xl uppercase leading-[1.12] tracking-tight sm:text-5xl"
+          >
+            <span className="block text-ink">Business</span>
+            <span className="mt-2 inline-block -rotate-1 rounded-md border-2 border-ink bg-cat-operations px-3 py-1 text-white shadow-punch">
+              Simulations.
+            </span>
+            <span className="mt-3 block">
+              <span className="inline-block rotate-1 rounded-md border-2 border-ink bg-gold px-3 py-1 text-ink shadow-punch">
+                Real Decisions.
+              </span>
+            </span>
+          </Motion.h1>
 
-          <p className="mt-6 max-w-lg text-lg text-muted-foreground">
+          <Motion.p
+            {...enter(0.1)}
+            className="mt-6 max-w-lg text-lg text-muted-foreground"
+          >
             Learn strategy, finance, operations, and public policy by doing —
             interactive simulations where every decision plays out in a living
             market, not a textbook.
-          </p>
+          </Motion.p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg">
+          <Motion.div
+            {...enter(0.2)}
+            className="mt-8 flex flex-wrap items-center gap-3"
+          >
+            <Button asChild variant="token" size="lg">
               <Link to="/simulations">Explore Simulations</Link>
             </Button>
-            <Button variant="outline" size="lg">
+            <Button
+              variant="outline"
+              size="lg"
+              disabled
+              title="Coming soon"
+              className="disabled:opacity-100"
+            >
               <Play />
               Watch Demo
+              <span className="rounded-sm bg-gold/40 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink">
+                soon
+              </span>
             </Button>
-          </div>
+          </Motion.div>
 
-          <div className="mt-10 flex flex-wrap gap-x-10 gap-y-5">
+          <Motion.div
+            {...enter(0.3)}
+            className="mt-10 inline-flex flex-wrap divide-x-2 divide-ink rounded-md border-2 border-ink bg-card shadow-punch-sm"
+          >
             {LANDING_STATS.map((stat) => {
               const Icon = STAT_ICONS[stat.icon]
               return (
-                <div key={stat.id} className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15 text-primary">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
+                <div key={stat.id} className="flex items-center gap-3 px-5 py-3">
+                  <Icon className="h-4 w-4 text-ink" aria-hidden="true" />
                   <div>
-                    <p className="text-xl font-bold leading-tight tabular-nums">
+                    <p className="font-mono text-lg font-semibold leading-tight tabular-nums">
                       <NumberTicker value={stat.value} />
                       {stat.suffix}
                     </p>
@@ -56,23 +94,10 @@ export default function Hero() {
                 </div>
               )
             })}
-          </div>
+          </Motion.div>
         </div>
 
         <div className="relative flex justify-center lg:justify-end">
-          {/* Ambient glow behind the hero graphic */}
-          <div
-            aria-hidden="true"
-            className="absolute left-1/2 top-1/2 -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600/35 blur-3xl"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute right-0 top-1/4 -z-10 h-64 w-64 rounded-full bg-orange-500/25 blur-3xl"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute bottom-0 left-8 -z-10 h-48 w-48 rounded-full bg-indigo-500/30 blur-3xl"
-          />
           <HeroGraphic />
         </div>
       </div>

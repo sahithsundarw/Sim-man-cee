@@ -1,92 +1,102 @@
-/**
- * Abstract hero illustration — growth bars, trend line, and decision nodes.
- * Pure SVG so it stays crisp, weightless, and token-colored.
- * Bars and line carry a soft neon edge glow (SVG drop-shadow filters).
- */
-export default function HeroGraphic() {
+import { Link } from "react-router-dom"
+import { motion as Motion, useReducedMotion } from "motion/react"
+
+import SimIcon from "@/components/simulations/SimIcon"
+import { CATEGORIES, getSimulationBySlug } from "@/data/simulations"
+
+// The dealt hand: five real sims fanned like property cards, one per color
+// group. Hover picks a card up and straightens it; click opens the sim.
+const HAND = [
+  { slug: "clash-of-taxis", rotate: -14, x: -150, y: 34 },
+  { slug: "network-policy-lab", rotate: -7, x: -75, y: 10 },
+  { slug: "financial-literacy", rotate: 0, x: 0, y: 0 },
+  { slug: "bargaining-arena", rotate: 7, x: 75, y: 10 },
+  { slug: "influence-welfare", rotate: 14, x: 150, y: 34 },
+]
+
+function HandCard({ sim, rotate, x, y, index, reduceMotion }) {
+  const category = CATEGORIES[sim.category]
+  const centerDistance = Math.abs(index - 2)
+
   return (
-    <svg
-      viewBox="0 0 480 360"
-      role="img"
-      aria-label="Abstract illustration of growth charts and decision paths"
-      className="h-auto w-full max-w-md"
+    <Motion.div
+      initial={reduceMotion ? false : { opacity: 0, y: 64, rotate: 0, x: 0 }}
+      animate={{ opacity: 1, y, rotate, x }}
+      whileHover={
+        reduceMotion
+          ? undefined
+          : { y: y - 18, rotate: 0, scale: 1.05, zIndex: 10 }
+      }
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : {
+              duration: 0.6,
+              ease: [0.16, 1, 0.3, 1],
+              delay: 0.25 + index * 0.1,
+            }
+      }
+      style={{ zIndex: 3 - centerDistance }}
+      className="absolute w-36 sm:w-44"
     >
-      <defs>
-        <linearGradient id="hg-bar" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#6d5ef5" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#6d5ef5" />
-        </linearGradient>
-        <linearGradient id="hg-bar-orange" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#f5a623" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#f5a623" />
-        </linearGradient>
-        <linearGradient id="hg-line" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#8b5cf6" />
-          <stop offset="50%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#f5a623" />
-        </linearGradient>
-        <filter id="hg-glow-purple" x="-60%" y="-60%" width="220%" height="220%">
-          <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#8b5cf6" floodOpacity="0.55" />
-        </filter>
-        <filter id="hg-glow-orange" x="-60%" y="-60%" width="220%" height="220%">
-          <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#f5a623" floodOpacity="0.55" />
-        </filter>
-        <filter id="hg-glow-line" x="-40%" y="-40%" width="180%" height="180%">
-          <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#a855f7" floodOpacity="0.7" />
-        </filter>
-      </defs>
+      <Motion.div
+        animate={reduceMotion ? undefined : { y: [0, -5, 0] }}
+        transition={
+          reduceMotion
+            ? undefined
+            : {
+                duration: 4 + index * 0.6,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1 + index * 0.35,
+              }
+        }
+      >
+        <Link
+          to={`/simulations/${sim.slug}`}
+          className="block overflow-hidden rounded-md border-2 border-ink bg-card shadow-punch outline-none transition-shadow hover:shadow-punch-lg focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <div
+            className="border-b-2 border-ink px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide"
+            style={{ background: category?.band, color: category?.bandText }}
+          >
+            {sim.category}
+          </div>
+          <div className="aspect-video border-b-2 border-ink">
+            <SimIcon slug={sim.slug} label={sim.title} />
+          </div>
+          <div className="px-3 py-2.5">
+            <p className="text-sm font-semibold leading-snug">{sim.title}</p>
+            <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+              {sim.plays.toLocaleString()} plays · {sim.rating.toFixed(1)}★
+            </p>
+          </div>
+        </Link>
+      </Motion.div>
+    </Motion.div>
+  )
+}
 
-      {/* panel */}
-      <rect x="40" y="40" width="400" height="280" rx="16" fill="#161b29" stroke="rgba(255,255,255,0.08)" />
+export default function HeroGraphic() {
+  const reduceMotion = useReducedMotion()
 
-      {/* grid lines */}
-      {[100, 150, 200, 250].map((y) => (
-        <line key={y} x1="70" y1={y} x2="410" y2={y} stroke="rgba(255,255,255,0.05)" />
-      ))}
-
-      {/* bars */}
-      <g filter="url(#hg-glow-purple)">
-        <rect x="90" y="220" width="36" height="70" rx="6" fill="url(#hg-bar)" />
-        <rect x="150" y="185" width="36" height="105" rx="6" fill="url(#hg-bar)" />
-        <rect x="270" y="150" width="36" height="140" rx="6" fill="url(#hg-bar)" />
-      </g>
-      <g filter="url(#hg-glow-orange)">
-        <rect x="210" y="205" width="36" height="85" rx="6" fill="url(#hg-bar-orange)" />
-        <rect x="330" y="115" width="36" height="175" rx="6" fill="url(#hg-bar-orange)" />
-      </g>
-
-      {/* trend line */}
-      <path
-        d="M90 210 L168 165 L228 185 L288 125 L368 85"
-        fill="none"
-        stroke="url(#hg-line)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        filter="url(#hg-glow-line)"
-      />
-
-      {/* decision nodes on the line */}
-      {[
-        [90, 210],
-        [168, 165],
-        [228, 185],
-        [288, 125],
-        [368, 85],
-      ].map(([cx, cy]) => (
-        <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="6" fill="#0b0f1a" stroke="url(#hg-line)" strokeWidth="2.5" filter="url(#hg-glow-line)" />
-      ))}
-
-      {/* floating chips */}
-      <g>
-        <rect x="310" y="52" width="104" height="26" rx="13" fill="#232a40" />
-        <circle cx="326" cy="65" r="5" fill="#34d399" />
-        <rect x="338" y="61" width="60" height="8" rx="4" fill="rgba(255,255,255,0.25)" />
-      </g>
-      <g>
-        <rect x="62" y="60" width="88" height="26" rx="13" fill="#232a40" />
-        <circle cx="78" cy="73" r="5" fill="#f5a623" />
-        <rect x="90" y="69" width="46" height="8" rx="4" fill="rgba(255,255,255,0.25)" />
-      </g>
-    </svg>
+  return (
+    <div className="relative flex h-[360px] w-full max-w-lg items-center justify-center sm:h-[420px]">
+      {HAND.map((entry, index) => {
+        const sim = getSimulationBySlug(entry.slug)
+        if (!sim) return null
+        return (
+          <HandCard
+            key={entry.slug}
+            sim={sim}
+            rotate={entry.rotate}
+            x={entry.x}
+            y={entry.y}
+            index={index}
+            reduceMotion={reduceMotion}
+          />
+        )
+      })}
+    </div>
   )
 }

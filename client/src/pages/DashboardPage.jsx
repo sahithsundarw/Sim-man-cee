@@ -11,12 +11,20 @@ export default function DashboardPage() {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Welcome back, {MOCK_USER.name}! 👋
-        </h1>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/15 px-3 py-1.5 text-sm font-semibold text-orange-400">
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="font-display text-3xl tracking-tight">
+            Welcome back, {MOCK_USER.name}!
+          </h1>
+          <span
+            className="rounded-sm border-2 border-ink bg-secondary px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground"
+            title="Placeholder data — no real telemetry yet"
+          >
+            sample data
+          </span>
+        </div>
+        <span className="inline-flex items-center gap-1.5 rounded-md border-2 border-ink bg-gold px-3 py-1.5 text-sm font-semibold text-ink shadow-punch-sm">
           <Flame className="h-4 w-4" aria-hidden="true" />
-          {MOCK_USER.streakDays} day streak
+          <span className="font-mono tabular-nums">{MOCK_USER.streakDays}</span> day streak
         </span>
       </div>
 

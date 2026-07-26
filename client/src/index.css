@@ -3,51 +3,74 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  SimManCee design tokens — dark-only navy theme.
-  Values follow the redesign spec: near-black navy background,
-  elevated card surface, indigo primary, blue→purple→orange accent gradient.
-*/
-:root,
-.dark {
-  --background: #0b0f1a;
-  --foreground: #f3f4f6;
-  --card: #161b29;
-  --card-foreground: #f3f4f6;
-  --popover: #161b29;
-  --popover-foreground: #f3f4f6;
-  --primary: #5b4fe0;
-  --primary-foreground: #ffffff;
-  --secondary: #1e2436;
-  --secondary-foreground: #f3f4f6;
-  --muted: #1e2436;
-  --muted-foreground: #9ca3af;
-  --accent: #232a40;
-  --accent-foreground: #f3f4f6;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #5b4fe0;
-  --chart-1: #6d5ef5;
-  --chart-2: #a855f7;
-  --chart-3: #f5a623;
-  --chart-4: #38bdf8;
-  --chart-5: #34d399;
-  --radius: 0.75rem;
-  --sidebar: #0d1220;
-  --sidebar-foreground: #f3f4f6;
-  --sidebar-primary: #5b4fe0;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1e2436;
-  --sidebar-accent-foreground: #f3f4f6;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #5b4fe0;
+  BOARDWALK — direction contract
 
-  /* Brand extras */
-  --gradient-accent: linear-gradient(90deg, #6d5ef5, #a855f7, #f5a623);
-  --gradient-blue: linear-gradient(90deg, #38bdf8, #6d5ef5);
-  --gradient-purple: linear-gradient(90deg, #8b5cf6, #a855f7);
-  --gradient-orange: linear-gradient(90deg, #f5a623, #f97316);
+  THESIS: The catalog is the board — business learning styled as the board
+  game night it descends from. Refuses the edtech-SaaS default and the
+  dark-neon gamer look alike.
+
+  OWN-WORLD: Paper #FDFBF7 ground, ink #1A1814 lines. Category property
+  colors (Strategy #E4572E, Economics #2E933C, Finance #F2B705, Operations
+  #2D7DD2, Policy #17A398, OB/HR #E85D9A) own card bands, chips, fields.
+  Property cards: 2px ink border, hard 4px offset shadow, 4px radius max.
+  Archivo Black box lettering, Archivo UI, Martian Mono for every number.
+
+  STORY: Student lands, reads "playful but serious business practice",
+  browses the board, picks a sim, presses the gold PLAY token.
+
+  FIRST VIEWPORT: Game-box headline left, dealt hand of real sim cards
+  right, mono stat strip beneath, gold Play CTA in the headline block.
+
+  FORM: Boardwalk (rank 1 of 7 derived worlds; user-selected over Tycoon
+  Panel and Game Show Floor; seed script unavailable in-session).
+*/
+:root {
+  --background: #fdfbf7;
+  --foreground: #1a1814;
+  --card: #ffffff;
+  --card-foreground: #1a1814;
+  --popover: #ffffff;
+  --popover-foreground: #1a1814;
+  --primary: #1a1814;
+  --primary-foreground: #fdfbf7;
+  --secondary: #f3efe6;
+  --secondary-foreground: #1a1814;
+  --muted: #f3efe6;
+  --muted-foreground: #5c554b;
+  --accent: #f2b705;
+  --accent-foreground: #1a1814;
+  --destructive: #c1292e;
+  --destructive-foreground: #ffffff;
+  --border: #1a1814;
+  --input: #1a1814;
+  --ring: #f2b705;
+  --chart-1: #c8431d;
+  --chart-2: #266fbe;
+  --chart-3: #268033;
+  --chart-4: #f2b705;
+  --chart-5: #17a398;
+  --radius: 4px;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1814;
+  --sidebar-primary: #1a1814;
+  --sidebar-primary-foreground: #fdfbf7;
+  --sidebar-accent: #f3efe6;
+  --sidebar-accent-foreground: #1a1814;
+  --sidebar-border: #1a1814;
+  --sidebar-ring: #f2b705;
+
+  /* Boardwalk world tokens */
+  --ink: #1a1814;
+  --paper: #fdfbf7;
+  --gold: #f2b705;
+  /* Strategy/Economics/Operations darkened to clear 4.5:1 with white text */
+  --cat-strategy: #c8431d;
+  --cat-economics: #268033;
+  --cat-finance: #f2b705;
+  --cat-operations: #266fbe;
+  --cat-policy: #17a398;
+  --cat-obhr: #e85d9a;
+  --grid-line: #e8e3d8;
 }
 
 @theme inline {
@@ -83,68 +106,89 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
-}
-
-@keyframes spotlight {
-  0% {
-    opacity: 0;
-    transform: translate(-72%, -62%) scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -40%) scale(1);
-  }
-}
-
-/* Reduced motion: show the spotlight in its final state without animating */
-@media (prefers-reduced-motion: reduce) {
-  .animate-spotlight {
-    animation: none;
-    opacity: 1;
-    transform: translate(-50%, -40%) scale(1);
-  }
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-gold: var(--gold);
+  --color-cat-strategy: var(--cat-strategy);
+  --color-cat-economics: var(--cat-economics);
+  --color-cat-finance: var(--cat-finance);
+  --color-cat-operations: var(--cat-operations);
+  --color-cat-policy: var(--cat-policy);
+  --color-cat-obhr: var(--cat-obhr);
+  --color-grid-line: var(--grid-line);
+  /* Radius capped at 4px everywhere — Boardwalk cards are die-cut, not soft */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo Black", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, monospace;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply outline-ring/50;
+    border-color: var(--grid-line);
   }
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
   }
 }
 
-@layer utilities {
-  .text-gradient-accent {
-    background: var(--gradient-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+/* Hard punch-out shadow — the world's native depth device (no blur) */
+@utility shadow-punch {
+  box-shadow: 4px 4px 0 0 var(--ink);
+}
+@utility shadow-punch-sm {
+  box-shadow: 2px 2px 0 0 var(--ink);
+}
+@utility shadow-punch-lg {
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+
+/* Boardwalk motion: ticker marquee, floating tokens, crawling board path */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
   }
-  .text-gradient-blue {
-    background: var(--gradient-blue);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+  to {
+    transform: translateX(-50%);
   }
-  .text-gradient-purple {
-    background: var(--gradient-purple);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--bob-tilt, 0deg));
   }
-  .text-gradient-orange {
-    background: var(--gradient-orange);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+  50% {
+    transform: translateY(-9px) rotate(var(--bob-tilt, 0deg));
   }
-  .bg-gradient-accent {
-    background: var(--gradient-accent);
+}
+@keyframes dash-crawl {
+  to {
+    stroke-dashoffset: -400;
+  }
+}
+@utility animate-marquee {
+  animation: marquee 36s linear infinite;
+}
+@utility animate-bob {
+  animation: bob 4.5s ease-in-out infinite;
+}
+@utility animate-bob-slow {
+  animation: bob 6.5s ease-in-out infinite;
+}
+@utility animate-dash-crawl {
+  animation: dash-crawl 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-bob,
+  .animate-bob-slow,
+  .animate-dash-crawl {
+    animation: none;
   }
 }

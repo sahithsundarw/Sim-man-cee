@@ -1,17 +1,27 @@
 import { useMemo, useState } from "react"
+import { useSearchParams } from "react-router-dom"
 import { Search, SlidersHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import SimCard from "@/components/simulations/SimCard"
 import { useSimulations } from "@/hooks/useSimulations"
-import { CATEGORY_TABS } from "@/data/simulations"
+import { CATEGORIES, CATEGORY_TABS } from "@/data/simulations"
 import { cn } from "@/lib/utils"
 
 export default function SimulationsPage() {
   const { simulations } = useSimulations()
-  const [activeCategory, setActiveCategory] = useState("All")
+  const [searchParams, setSearchParams] = useSearchParams()
+  const paramCategory = searchParams.get("category")
+  const [activeCategory, setActiveCategory] = useState(
+    CATEGORY_TABS.includes(paramCategory) ? paramCategory : "All"
+  )
   const [query, setQuery] = useState("")
+
+  const selectCategory = (tab) => {
+    setActiveCategory(tab)
+    setSearchParams(tab === "All" ? {} : { category: tab }, { replace: true })
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -30,7 +40,7 @@ export default function SimulationsPage() {
     <div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Simulations</h1>
+          <h1 className="font-display text-3xl uppercase tracking-tight">Simulations</h1>
           <p className="mt-1 text-muted-foreground">
             Pick a simulation and put your decisions to the test.
           </p>
@@ -51,7 +61,13 @@ export default function SimulationsPage() {
               aria-label="Search simulations"
             />
           </div>
-          <Button variant="outline" size="icon" aria-label="Filters">
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label="Filters (coming soon)"
+            disabled
+            title="Coming soon"
+          >
             <SlidersHorizontal />
           </Button>
         </div>
@@ -67,12 +83,15 @@ export default function SimulationsPage() {
             key={tab}
             role="tab"
             aria-selected={activeCategory === tab}
-            onClick={() => setActiveCategory(tab)}
+            onClick={() => selectCategory(tab)}
             className={cn(
-              "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
+              "shrink-0 rounded-md border-2 border-ink px-4 py-1.5 text-sm font-semibold transition-all",
               activeCategory === tab
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-muted-foreground hover:text-foreground"
+                ? cn(
+                    "shadow-punch-sm",
+                    tab === "All" ? "bg-ink text-paper" : CATEGORIES[tab]?.chip
+                  )
+                : "bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
             )}
           >
             {tab}

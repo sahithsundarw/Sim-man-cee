@@ -7,9 +7,9 @@ export default function AppLayout() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset className="h-svh overflow-y-auto">
-        <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur">
+        <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b-2 border-ink bg-background px-4">
           <SidebarTrigger aria-label="Toggle sidebar" />
-          <span className="text-sm font-semibold tracking-tight text-gradient-accent">
+          <span className="font-display text-sm tracking-tight text-ink">
             SimManCee
           </span>
         </header>

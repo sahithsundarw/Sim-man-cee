@@ -46,7 +46,7 @@ export default function AppSidebar() {
             alt="SimManCee logo"
             className="h-8 w-8 rounded-md object-contain"
           />
-          <span className="text-base font-bold tracking-tight text-gradient-accent">
+          <span className="font-display text-base tracking-tight text-ink">
             SimManCee
           </span>
         </Link>
@@ -76,7 +76,7 @@ export default function AppSidebar() {
                     <SidebarMenuButton
                       asChild
                       isActive={pathname.startsWith(item.to)}
-                      className="h-auto px-3 py-2.5"
+                      className="h-auto px-3 py-2.5 data-[active=true]:bg-ink data-[active=true]:text-paper data-[active=true]:font-semibold"
                     >
                       <Link to={item.to}>
                         <item.icon />
@@ -92,9 +92,9 @@ export default function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border p-4">
-        <div className="flex items-center gap-3 rounded-lg bg-sidebar-accent/60 px-3 py-3">
+        <div className="flex items-center gap-3 rounded-md border-2 border-ink bg-secondary px-3 py-3">
           <Avatar className="h-9 w-9">
-            <AvatarFallback className="bg-primary text-xs font-semibold text-primary-foreground">
+            <AvatarFallback className="bg-gold text-xs font-semibold text-ink">
               {MOCK_USER.avatarInitials}
             </AvatarFallback>
           </Avatar>

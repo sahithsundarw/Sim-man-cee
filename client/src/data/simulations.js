@@ -10,13 +10,16 @@
  * API data when available.
  */
 
+// Boardwalk "property colors" — each category owns a color group (see DESIGN.md).
+// `band` fills card headers/fields; `chip` is the filter-token fill; `text` is
+// the only legible text color on that fill.
 export const CATEGORIES = {
-  Strategy: { chip: "bg-indigo-500 text-white", dot: "bg-indigo-500" },
-  Finance: { chip: "bg-emerald-500 text-white", dot: "bg-emerald-500" },
-  Operations: { chip: "bg-orange-500 text-white", dot: "bg-orange-500" },
-  "Public Policy": { chip: "bg-sky-500 text-white", dot: "bg-sky-500" },
-  "OB/HR": { chip: "bg-pink-500 text-white", dot: "bg-pink-500" },
-  Economics: { chip: "bg-amber-500 text-black", dot: "bg-amber-500" },
+  Strategy: { chip: "bg-cat-strategy text-white", dot: "bg-cat-strategy", band: "var(--cat-strategy)", bandText: "#ffffff" },
+  Finance: { chip: "bg-cat-finance text-ink", dot: "bg-cat-finance", band: "var(--cat-finance)", bandText: "#1a1814" },
+  Operations: { chip: "bg-cat-operations text-white", dot: "bg-cat-operations", band: "var(--cat-operations)", bandText: "#ffffff" },
+  "Public Policy": { chip: "bg-cat-policy text-ink", dot: "bg-cat-policy", band: "var(--cat-policy)", bandText: "#1a1814" },
+  "OB/HR": { chip: "bg-cat-obhr text-ink", dot: "bg-cat-obhr", band: "var(--cat-obhr)", bandText: "#1a1814" },
+  Economics: { chip: "bg-cat-economics text-white", dot: "bg-cat-economics", band: "var(--cat-economics)", bandText: "#ffffff" },
 }
 
 export const CATEGORY_TABS = [
